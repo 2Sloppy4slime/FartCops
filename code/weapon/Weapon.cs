@@ -27,7 +27,9 @@ public partial class Weapon : AnimatedEntity
 	/// <summary>
 	/// How often you can shoot this gun.
 	/// </summary>
-	public virtual float PrimaryRate => 2.0f;
+	public virtual float PrimaryRate => 1.0f;
+
+	public Trace Trace;
 
 	/// <summary>
 	/// How long since we last shot this gun.
@@ -92,8 +94,17 @@ public partial class Weapon : AnimatedEntity
 	public virtual bool CanPrimaryAttack()
 	{
 		if ( !Owner.IsValid() || !Input.Down( "attack1" ) ) return false;
-
 		var rate = PrimaryRate;
+		if (Pawn.sc.Kills !> 4)
+		{
+		 rate = PrimaryRate + 2;
+		}
+        else
+        {
+		 rate = PrimaryRate;
+		}
+		
+
 		if ( rate <= 0 ) return true;
 
 		return TimeSincePrimaryAttack > (1 / rate);
@@ -209,19 +220,32 @@ public partial class Weapon : AnimatedEntity
 		Particles Fart = Particles.Create("particles/Fard.vpcf");
 		Fart.SetPosition(0, new Vector3(Pawn.Position.x, Pawn.Position.y, Pawn.Position.z + 30));
 		Pawn.PlaySound("fart");
-		Pawn.Velocity = (Pawn.EyeRotation.Forward * 900f);
-
-		var ents = Entity.FindInSphere(Pawn.Position + (Pawn.EyeRotation.Backward *3), 35f).ToList();
-		foreach (var pawn in All.OfType<Pawn>().Where(p => p.Position.Distance(Pawn.Position + (Pawn.EyeRotation.Backward *3)) < 35f).ToList())
+		if (Pawn.sc.Kills > 4)
 		{
-			if (pawn != Owner)
+
+			Pawn.Velocity = (Pawn.EyeRotation.Forward * (900f + (4 * 50)));
+		}
+		else
+		{
+			
+			Pawn.Velocity = (Pawn.EyeRotation.Forward * (900f + (Pawn.sc.Kills * 50)));
+		}
+
+		var ents = Entity.FindInSphere(Pawn.Position + (Pawn.EyeRotation.Backward *100), 35f).ToList();
+		foreach (var pawn in All.OfType<Pawn>().Where(p => p.Position.Distance(Pawn.Position + (Pawn.Rotation.Backward *10)) < 35f).ToList())
+		{
+			
+			if (pawn != Owner )
 			{
+	
+                
+					pawn.TakeDamage(DamageInfo.Generic(100));
 
-				pawn.TakeDamage(DamageInfo.Generic(100));
-
-				pawn.sc.GotKilled(1);
-				pawn.sc.Killstreak = 0;
-				Pawn.sc.KillGet(1);
+					pawn.sc.GotKilled(1);
+					pawn.sc.Killstreak = 0;
+					Pawn.sc.KillGet(1);
+				
+				
 			}
 		}
 		foreach (var i in ents)
