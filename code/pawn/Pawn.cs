@@ -231,7 +231,6 @@ public partial class Pawn : AnimatedEntity
 	{
 		if (ConsoleSystem.Caller.Pawn is Pawn basePlayer)
 		{
-			basePlayer.sc.Killstreak = 0;
 			basePlayer.TakeDamage(new DamageInfo { Damage = basePlayer.Health * 99 });
 		}
 	}
