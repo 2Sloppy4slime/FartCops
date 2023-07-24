@@ -15,6 +15,7 @@ public partial class Pawn : AnimatedEntity
 
 	[Net, Predicted]
 	public Weapon ActiveWeapon { get; set; }
+	
 
 	[ClientInput]
 	public Vector3 InputDirection { get; set; }
@@ -82,7 +83,7 @@ public partial class Pawn : AnimatedEntity
 		LifeState = LifeState.Alive;
 		Tags.Add("player");
 		SetupPhysicsFromOBB(PhysicsMotionType.Keyframed, this.Position, this.Position);
-
+		CreateHull();
 	}
 
 	public void SetActiveWeapon( Weapon weapon )
@@ -101,12 +102,14 @@ public partial class Pawn : AnimatedEntity
 		SetupPhysicsFromOBB(PhysicsMotionType.Keyframed, this.Position, this.Position);
 		Components.Create<PawnController>();
 		Components.Create<PawnAnimator>();
-		Tags.Add("player");
+		Tags.Clear();
+		Tags.Add("player", "solid");
 		EnableAllCollisions = true;
 		SetActiveWeapon( new Pistol() );
 		Health = 100;
 		LifeState = LifeState.Alive;
 		GameManager.Current?.MoveToSpawnpoint(this);
+		CreateHull();
 	}
 
 	public void DressFromClient( IClient cl )
@@ -213,13 +216,13 @@ public partial class Pawn : AnimatedEntity
 		EyeRotation = ViewAngles.ToRotation();
 		Rotation = ViewAngles.WithPitch( 0f ).ToRotation();
 	}
-	public Weapon DestroyViewModel;
 	public override void OnKilled()
 	{
 		base.OnKilled();
 		var pawn = new Pawn();
 		this.Client.Pawn = pawn;
 		pawn.Respawn();
+
 		
 
 	}
@@ -233,6 +236,12 @@ public partial class Pawn : AnimatedEntity
 		}
 	}
 
+	public virtual void CreateHull()
+	{
+		SetupPhysicsFromAABB(PhysicsMotionType.Keyframed, Hull.Mins, Hull.Maxs);
 
+		// TODO - investigate this? if we don't set movetype then the lerp is too much. Can we control lerp amount?
+		EnableHitboxes = true;
+	}
 
 }

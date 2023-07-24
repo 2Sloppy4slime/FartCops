@@ -211,27 +211,30 @@ public partial class Weapon : AnimatedEntity
 		Pawn.PlaySound("fart");
 		Pawn.Velocity = (Pawn.EyeRotation.Forward * 900f);
 
-		var ents = Entity.FindInSphere(Pawn.Position + (Pawn.EyeRotation.Backward), 30f).ToList();
-		foreach (var pawn in All.OfType<Pawn>().Where(p => p.Position.Distance(Pawn.Position + Pawn.EyeRotation.Backward) < 22f).ToList())
+		var ents = Entity.FindInSphere(Pawn.Position + (Pawn.EyeRotation.Backward *3), 35f).ToList();
+		foreach (var pawn in All.OfType<Pawn>().Where(p => p.Position.Distance(Pawn.Position + (Pawn.EyeRotation.Backward *3)) < 35f).ToList())
 		{
-			if (pawn == Owner)
-			{
-			}
-			else
+			if (pawn != Owner)
 			{
 
 				pawn.TakeDamage(DamageInfo.Generic(100));
+
 				pawn.sc.GotKilled(1);
 				pawn.sc.Killstreak = 0;
-				Log.Info(pawn.sc.Deaths);
-				Log.Info(Pawn.sc.Killstreak);
 				Pawn.sc.KillGet(1);
 			}
 		}
 		foreach (var i in ents)
 		{
-			i.TakeDamage(DamageInfo.Generic(100));
 
+			if (i == Owner)
+			{ }
+            else if (i is Pawn)
+            {  }
+			else
+			{
+				i.TakeDamage(DamageInfo.Generic(100));
+			}
 
 		}
 	}
