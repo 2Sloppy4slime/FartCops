@@ -220,12 +220,14 @@ public partial class Pawn : AnimatedEntity
 		this.Client.Pawn = pawn;
 		pawn.Respawn();
 		
+
 	}
 	[ConCmd.Admin("kill")]
 	static void DoPlayerSuicide()
 	{
 		if (ConsoleSystem.Caller.Pawn is Pawn basePlayer)
 		{
+			basePlayer.sc.Killstreak = 0;
 			basePlayer.TakeDamage(new DamageInfo { Damage = basePlayer.Health * 99 });
 		}
 	}

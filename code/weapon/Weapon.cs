@@ -222,6 +222,9 @@ public partial class Weapon : AnimatedEntity
 
 				pawn.TakeDamage(DamageInfo.Generic(100));
 				pawn.sc.GotKilled(1);
+				pawn.sc.Killstreak = 0;
+				Log.Info(pawn.sc.Deaths);
+				Log.Info(Pawn.sc.Killstreak);
 				Pawn.sc.KillGet(1);
 			}
 		}
