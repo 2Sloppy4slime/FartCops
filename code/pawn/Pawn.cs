@@ -81,7 +81,7 @@ public partial class Pawn : AnimatedEntity
 		Health = 100;
 		LifeState = LifeState.Alive;
 		Tags.Add("player");
-		
+		SetupPhysicsFromOBB(PhysicsMotionType.Keyframed, this.Position, this.Position);
 
 	}
 
@@ -98,6 +98,7 @@ public partial class Pawn : AnimatedEntity
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 		SetModel("models/citizen/citizen.vmdl");
+		SetupPhysicsFromOBB(PhysicsMotionType.Keyframed, this.Position, this.Position);
 		Components.Create<PawnController>();
 		Components.Create<PawnAnimator>();
 		Tags.Add("player");
