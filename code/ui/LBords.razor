@@ -1,19 +1,20 @@
 @using Sandbox;
 @using Sandbox.UI;
 @using System;
+@using System.Collections.Generic;
+@using System.Linq;
+
 @namespace MyGame
 @inherits RootPanel
 @attribute [StyleSheet]
 @code{
-    public Pawn Pawn = new Pawn();
-    public Score sc = new Score();
-    public Score Kills;
-    public string killcount = "0";
-    public string Killshud()
+    public Pawn Pawn;
+    private string killcount => Pawn.sc.Kills.ToString();
+    private string Killshud()
     {
 
             return killcount;
-
+            Log.Info(killcount);
     }
 }
 <style>
@@ -32,13 +33,13 @@
 </style>
 <root>
    <panel class="KillText">
-        @Killshud
+        @Killshud()
     </panel>
 </root>
 
 @code{
     protected override int BuildHash()
     {
-        return HashCode.Combine(Time.Now);
+        return HashCode.Combine(Killshud);
     }
 }
