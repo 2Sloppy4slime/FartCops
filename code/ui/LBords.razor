@@ -5,11 +5,40 @@
 @inherits RootPanel
 @attribute [StyleSheet]
 @code{
-    public Pawn Pawn;
+    public Pawn Pawn = new Pawn();
     public Score sc = new Score();
-}
-<root>
-   <div>
+    public Score Kills;
+    public string killcount = "0";
+    public string Killshud()
+    {
 
-   </div>
+            return killcount;
+
+    }
+}
+<style>
+    LBords{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+    }
+    .KillText{
+        font-size:32px;
+        color:navajowhite;
+        text-stroke:5px black;
+
+    }
+</style>
+<root>
+   <panel class="KillText">
+        @Killshud
+    </panel>
 </root>
+
+@code{
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Time.Now);
+    }
+}

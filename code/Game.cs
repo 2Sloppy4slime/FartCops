@@ -59,6 +59,7 @@ public partial class MyGame : Sandbox.GameManager
 		if ( Game.IsClient )
 		{
 			Game.RootPanel = new Hud();
+			Game.RootPanel = new LBords();
 		}
 	}
 
