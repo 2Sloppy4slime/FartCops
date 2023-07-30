@@ -74,7 +74,7 @@ public partial class MyGame : Sandbox.GameManager
 		var pawn = new Pawn();
 		client.Pawn = pawn;
 		pawn.Respawn();
-		pawn.DressFromClient( client );
+		
 
 		// Get all of the spawnpoints
 		var spawnpoints = Entity.All.OfType<SpawnPoint>();

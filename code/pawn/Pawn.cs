@@ -74,7 +74,7 @@ public partial class Pawn : AnimatedEntity
 	/// </summary>
 	public override void Spawn()
 	{
-		SetModel( "models/citizen/citizen.vmdl" );
+		SetModel( "models/male07.vmdl" );
 		
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
@@ -98,7 +98,7 @@ public partial class Pawn : AnimatedEntity
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
-		SetModel("models/citizen/citizen.vmdl");
+		SetModel("models/male07.vmdl");
 		SetupPhysicsFromOBB(PhysicsMotionType.Keyframed, this.Position, this.Position);
 		Components.Create<PawnController>();
 		Components.Create<PawnAnimator>();
