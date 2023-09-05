@@ -13,6 +13,8 @@ public partial class Pawn : AnimatedEntity
 	public Score GotKilled { get; set; }
 	public Score KillGet { get; set; }
 
+	
+
 	[Net, Predicted]
 	public Weapon ActiveWeapon { get; set; }
 	
@@ -74,7 +76,7 @@ public partial class Pawn : AnimatedEntity
 	/// </summary>
 	public override void Spawn()
 	{
-		SetModel( "models/male07/male_07.vmdl" );
+		SetModel("models/citizen/citizen.vmdl");
 		
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
@@ -98,7 +100,7 @@ public partial class Pawn : AnimatedEntity
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
-		SetModel("models/male07/male_07.vmdl");
+		SetModel("models/citizen/citizen.vmdl");
 		SetupPhysicsFromOBB(PhysicsMotionType.Keyframed, this.Position, this.Position);
 		Components.Create<PawnController>();
 		Components.Create<PawnAnimator>();
@@ -110,6 +112,7 @@ public partial class Pawn : AnimatedEntity
 		LifeState = LifeState.Alive;
 		GameManager.Current?.MoveToSpawnpoint(this);
 		CreateHull();
+
 	}
 
 	public void DressFromClient( IClient cl )
@@ -218,6 +221,7 @@ public partial class Pawn : AnimatedEntity
 	}
 	public override void OnKilled()
 	{
+		
 		base.OnKilled();
 		var pawn = new Pawn();
 		this.Client.Pawn = pawn;

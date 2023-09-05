@@ -237,10 +237,10 @@ public partial class Weapon : AnimatedEntity
 			
 			if (pawn != Owner )
 			{
-	
-                
-					pawn.TakeDamage(DamageInfo.Generic(100));
 
+				
+				pawn.TakeDamage(DamageInfo.Generic(100));
+					
 					pawn.sc.GotKilled(1);
 					Pawn.sc.KillGet(1);
 				
