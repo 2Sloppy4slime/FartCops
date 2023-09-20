@@ -9,13 +9,7 @@
 @attribute [StyleSheet]
 @code{
     public Pawn Pawn;
-    private string killcount => Pawn.sc.Kills.ToString();
-    private string Killshud()
-    {
 
-            return killcount;
-            Log.Info(killcount);
-    }
 }
 <style>
     LBords{
@@ -33,13 +27,9 @@
 </style>
 <root>
    <panel class="KillText">
-        @Killshud()
     </panel>
 </root>
 
 @code{
-    protected override int BuildHash()
-    {
-        return HashCode.Combine(Killshud);
-    }
+
 }

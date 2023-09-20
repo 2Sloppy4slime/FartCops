@@ -10,8 +10,6 @@ namespace MyGame;
 public partial class Pawn : AnimatedEntity
 {
 	public Score sc = new Score();
-	public Score GotKilled { get; set; }
-	public Score KillGet { get; set; }
 
 	
 
@@ -77,7 +75,6 @@ public partial class Pawn : AnimatedEntity
 	public override void Spawn()
 	{
 		SetModel("models/citizen/citizen.vmdl");
-		
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
@@ -100,7 +97,7 @@ public partial class Pawn : AnimatedEntity
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
-		SetModel("models/citizen/citizen.vmdl");
+		
 		SetupPhysicsFromOBB(PhysicsMotionType.Keyframed, this.Position, this.Position);
 		Components.Create<PawnController>();
 		Components.Create<PawnAnimator>();
@@ -221,12 +218,12 @@ public partial class Pawn : AnimatedEntity
 	}
 	public override void OnKilled()
 	{
-		
+		ActiveWeapon?.OnHolster();
 		base.OnKilled();
 		var pawn = new Pawn();
 		this.Client.Pawn = pawn;
 		pawn.Respawn();
-
+		pawn.Position += new Vector3(0, 0, 60);
 		
 
 	}

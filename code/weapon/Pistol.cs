@@ -13,15 +13,11 @@ public partial class Pistol : Weapon
 	static IEntity FirstPersonViewer { get; set; }
 
 	public Score sc = new Score();
-	public Score GotKilled { get; set; }
-	public Score KillGet { get; set; }
 
 	[ClientRpc]
 	protected virtual void ShootEffects()
 	{
 		Game.AssertClient();
-
-		Particles.Create( "particles/pistol_muzzleflash.vpcf", EffectEntity, "muzzle" );
 
 		Pawn.SetAnimParameter( "b_attack", true );
 		ViewModelEntity?.SetAnimParameter( "fire", true );

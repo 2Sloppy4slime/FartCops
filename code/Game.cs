@@ -58,6 +58,7 @@ public partial class MyGame : Sandbox.GameManager
 		
 		if ( Game.IsClient )
 		{
+		    Score sc = new Score();
 			Game.RootPanel = new Hud();
 			Game.RootPanel = new LBords();
 		}
