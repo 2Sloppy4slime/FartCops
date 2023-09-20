@@ -27,6 +27,18 @@
     "GameCategory": "TechDemos",
     "ProjectTemplate": null,
     "CsProjName": "",
-    "TickRate": 50
+    "TickRate": 50,
+    "LaunchConfigs": [
+      {
+        "Name": "My New Config",
+        "GameIdent": "slopp.fartcops#local",
+        "MapName": "skop.troll_o_showel_deathmatch_map",
+        "MaxPlayers": 1,
+        "GameSettings": {},
+        "Addons": "",
+        "PreLaunchCommand": "",
+        "PostLaunchCommand": ""
+      }
+    ]
   }
 }
